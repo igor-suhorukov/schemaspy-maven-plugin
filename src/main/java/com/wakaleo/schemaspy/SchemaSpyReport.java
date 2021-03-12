@@ -42,7 +42,7 @@ public class SchemaSpyReport extends AbstractMavenReport {
      * The output directory for the intermediate report.
      *
      */
-    @Parameter (defaultValue="${project.build.directory}")
+    @Parameter (property = "targetDirectory", defaultValue="${project.build.directory}")
     private File targetDirectory;
 
     /**
@@ -52,7 +52,7 @@ public class SchemaSpyReport extends AbstractMavenReport {
      * will be generated.
      *
      */
-    @Parameter(defaultValue="${project.build.directory}/site", property="outputDirectory")
+    @Parameter(property="outputDirectory", defaultValue="${project.build.directory}/site")
     private String outputDirectory;
 
     /**
@@ -71,7 +71,7 @@ public class SchemaSpyReport extends AbstractMavenReport {
     /**
      * The name of the database being analysed.
      */
-    @Parameter (required = true)
+    @Parameter (property = "database", required = true)
     private String database;
 
     /**
@@ -79,13 +79,13 @@ public class SchemaSpyReport extends AbstractMavenReport {
      *
      * @parameter host
      */
-    @Parameter
+    @Parameter(property = "host")
     private String host;
 
     /**
      * The port, required by some drivers.
      */
-    @Parameter
+    @Parameter(property = "port")
     private String port;
 
 //    /**
@@ -112,19 +112,19 @@ public class SchemaSpyReport extends AbstractMavenReport {
     /**
      * Connect to the database with this user id.
      */
-    @Parameter
+    @Parameter(property = "user")
     private String user;
 
     /**
      * Database schema to use - defaults to the specified user.
      */
-    @Parameter
+    @Parameter(property = "schema")
     private String schema;
 
     /**
      * Database password to use - defaults to none.
      */
-    @Parameter
+    @Parameter(property = "password")
     private String password;
 
     /**
@@ -132,7 +132,7 @@ public class SchemaSpyReport extends AbstractMavenReport {
      * than using the application classpath. Useful if your database has a
      * non-O/S driver not bundled with the plugin.
      */
-    @Parameter
+    @Parameter(property = "pathToDrivers")
     private String pathToDrivers;
 
     /**
@@ -141,7 +141,7 @@ public class SchemaSpyReport extends AbstractMavenReport {
      * backslash. NOTE: This field doesn't seem to be used by SchemaSpy in the
      * current version.
      */
-    @Parameter
+    @Parameter(property = "schemaDescription")
     private String schemaDescription;
 
     /**
@@ -151,7 +151,7 @@ public class SchemaSpyReport extends AbstractMavenReport {
      * their names or that start with 'library'. You might want to use
      * "description" with this option to describe the subset of tables.
      */
-    @Parameter
+    @Parameter(property = "includeTableNamesRegex")
     private String includeTableNamesRegex;
 
     /**
@@ -162,7 +162,7 @@ public class SchemaSpyReport extends AbstractMavenReport {
      * Note that each column name regular expression must be surround by ()'s
      * and separated from other column names by a |.
      */
-    @Parameter
+    @Parameter(property = "excludeColumnNamesRegex")
     private String excludeColumnNamesRegex;
 
     /**
@@ -170,7 +170,7 @@ public class SchemaSpyReport extends AbstractMavenReport {
      * encoded so that it's rendered as text. This option allows it to be
      * rendered as HTML.
      */
-    @Parameter
+    @Parameter(property = "allowHtmlInComments")
     private Boolean allowHtmlInComments;
 
     /**
@@ -180,27 +180,27 @@ public class SchemaSpyReport extends AbstractMavenReport {
      * @deprecated this seems to no longer be a supported option in SchemaSpy
      */
     @Deprecated
-    @Parameter
+    @Parameter(property = "commentsInitiallyDisplayed")
     private Boolean commentsInitiallyDisplayed;
 
     /**
      * Don't include implied foreign key relationships in the generated table
      * details.
      */
-    @Parameter
+    @Parameter(property = "noImplied")
     private Boolean noImplied;
 
     /**
      * Only generate files needed for insertion/deletion of data (e.g. for
      * scripts).
      */
-    @Parameter
+    @Parameter(property = "noHtml")
     private Boolean noHtml;
 
     /**
      * Detail of execution logging.
      */
-    @Parameter
+    @Parameter(property = "logLevel")
     private String logLevel;
 
     /**
@@ -212,21 +212,21 @@ public class SchemaSpyReport extends AbstractMavenReport {
      * seem to only work with the first method, so don't use this parameter
      * unless you have to.
      */
-    @Parameter
+    @Parameter(property = "useDriverManager")
     private Boolean useDriverManager;
 
     /**
      * The CSS Stylesheet. Allows you to override the default SchemaSpyCSS
      * stylesheet.
      */
-    @Parameter
+    @Parameter(property = "cssStylesheet")
     private String cssStylesheet;
 
     /**
      * Single Sign-On. Don't require a user to be specified with -user to
      * simplify configuration when running in a single sign-on environment.
      */
-    @Parameter
+    @Parameter(property = "singleSignOn")
     private Boolean singleSignOn;
 
     /**
@@ -235,7 +235,7 @@ public class SchemaSpyReport extends AbstractMavenReport {
      * That is, some might not have the "lower quality" libraries and others might not have
      * the "higher quality" libraries.
      */
-    @Parameter
+    @Parameter(property = "lowQuality")
     private Boolean lowQuality;
 
     /**
@@ -244,7 +244,7 @@ public class SchemaSpyReport extends AbstractMavenReport {
      * That is, some might not have the "lower quality" libraries and others might not have
      * the "higher quality" libraries.
      */
-    @Parameter
+    @Parameter(property = "highQuality")
     private Boolean highQuality;
 
     /**
@@ -252,7 +252,7 @@ public class SchemaSpyReport extends AbstractMavenReport {
      * evaluated and allows for traversal of cross-schema foreign key relationships.
      * Use with -schemaSpec "schemaRegularExpression" to narrow-down the schemas to include.
      */
-    @Parameter
+    @Parameter(property = "showAllSchemas")
     private Boolean showAllSchemas;
 
     /**
@@ -261,24 +261,24 @@ public class SchemaSpyReport extends AbstractMavenReport {
      * interrogating the database's metadata. Can be used with databases like MySQL where a
      * database isn't composed of multiple schemas.
      */
-    @Parameter
+    @Parameter(property = "schemas")
     private String schemas;
 
     /**
      * No schema required for this database (e.g. derby).
      */
-    @Parameter
+    @Parameter(property = "noSchema")
     private Boolean noSchema;
     /**
      * Don't query or display row counts.
      */
-    @Parameter
+    @Parameter(property = "noRows")
     private Boolean noRows;
 
     /**
      * Don't query or display row counts.
      */
-    @Parameter
+    @Parameter(property = "noViews")
     private Boolean noViews;
 
     /**
@@ -288,7 +288,7 @@ public class SchemaSpyReport extends AbstractMavenReport {
      * 
      * May also be a file name, useful for hiding connection properties from public logs. 
      */
-    @Parameter
+    @Parameter(property = "connprops")
     private String connprops;
 
     /**
@@ -296,7 +296,7 @@ public class SchemaSpyReport extends AbstractMavenReport {
      * @deprecated will be removed
      */
     @Deprecated
-    @Parameter(defaultValue ="true")
+    @Parameter(property = "noAds", defaultValue ="true")
     private Boolean noAds;
 
     /**
@@ -304,7 +304,7 @@ public class SchemaSpyReport extends AbstractMavenReport {
      * @deprecated will be removed
      */
     @Deprecated
-    @Parameter(defaultValue ="true")
+    @Parameter(property = "noLogo", defaultValue ="true")
     private Boolean noLogo;
 
     /**
@@ -312,7 +312,7 @@ public class SchemaSpyReport extends AbstractMavenReport {
      *
      * @since 5.0.4
      */
-    @Parameter(defaultValue ="false")
+    @Parameter(property = "runOnExecutionRoot", defaultValue ="false")
     protected boolean runOnExecutionRoot = false;
 
     /**
