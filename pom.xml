@@ -57,18 +57,18 @@
     </prerequisites>
 
     <scm>
-        <connection>scm:git:git://github.com/GeoDienstenCentrum/${project.artifactId}.git</connection>
-        <developerConnection>scm:git:git@github.com:GeoDienstenCentrum/${project.artifactId}.git</developerConnection>
-        <url>https://github.com/GeoDienstenCentrum/${project.artifactId}/</url>
+        <connection>scm:git:git://github.com/GeoDienstenCentrum/schemaspy-maven-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:GeoDienstenCentrum/schemaspy-maven-plugin.git</developerConnection>
+        <url>https://github.com/GeoDienstenCentrum/schemaspy-maven-plugin/</url>
         <tag>HEAD</tag>
     </scm>
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/GeoDienstenCentrum/${project.artifactId}/issues/</url>
+        <url>https://github.com/GeoDienstenCentrum/schemaspy-maven-plugin/issues/</url>
     </issueManagement>
     <ciManagement>
-        <system>Travis-CI</system>
-        <url>https://travis-ci.org/mprins/${project.artifactId}/</url>
+        <system>Github-CI</system>
+        <url>https://github.com/GeoDienstenCentrum/schemaspy-maven-plugin/actions/workflows/maven.yml</url>
     </ciManagement>
     <distributionManagement>
         <snapshotRepository>
@@ -82,7 +82,7 @@
         <site>
             <id>gh-pages</id>
             <name>github pages site</name>
-            <url>scm:git:https://github.com/GeoDienstenCentrum/${project.artifactId}.git</url>
+            <url>scm:git:https://github.com/GeoDienstenCentrum/schemaspy-maven-plugin.git</url>
         </site>
     </distributionManagement>
 
@@ -673,7 +673,7 @@
             </properties>
         </profile>
         <profile>
-            <id>travis</id>
+            <id>maven-ci</id>
             <properties>
                 <!-- should be environment provided -->
                 <repoToken />

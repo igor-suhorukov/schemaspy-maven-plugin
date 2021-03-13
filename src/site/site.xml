@@ -20,9 +20,9 @@
         <href>${project.url}</href>
     </bannerRight>
     <poweredBy>
-        <logo href="https://travis-ci.org/GeoDienstenCentrum/${project.artifactId}"
-              img="https://travis-ci.org/GeoDienstenCentrum/${project.artifactId}.svg?branch=master"
-              name="Travis-CI Build status (master branch)"/>
+        <logo href="https://github.com/GeoDienstenCentrum/${project.artifactId}/actions/workflows/maven.yml"
+              img="https://github.com/GeoDienstenCentrum/${project.artifactId}/actions/workflows/maven.yml/badge.svg"
+              name="Maven CI Build status (master branch)"/>
         <logo href="https://ci.appveyor.com/project/mprins/${project.artifactId}"
               img="https://ci.appveyor.com/api/projects/status/qxc604b7o0rwxsel/branch/master?svg=true"
               name="AppVeyor-CI Build status (master branch)"/>

@@ -79,8 +79,8 @@ jobs:
 
       - name: Test
         run: |
-          mvn -e -B -fae -Ptravis clean test -Dorg.slf4j.simpleLogger.showDateTime=true -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss,SSS -Dfailsafe.useFile=false
-          mvn -e -B -fae -Ptravis jacoco:report coveralls:report -q -Dlicense.skip=true -DrepoToken=$GITHUB_TOKEN -DserviceName=github
+          mvn -e -B -fae -Pmaven-ci clean test -Dorg.slf4j.simpleLogger.showDateTime=true -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss,SSS -Dfailsafe.useFile=false
+          mvn -e -B -fae -Pmaven-ci jacoco:report coveralls:report -q -Dlicense.skip=true -DrepoToken=$GITHUB_TOKEN -DserviceName=github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #      # https://github.com/marketplace/actions/coveralls-github-action
