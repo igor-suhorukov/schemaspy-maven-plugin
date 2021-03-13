@@ -133,6 +133,24 @@
             <version>1.9.1</version>
         </dependency>
         <dependency>
+            <!-- to override the version that comes with maven-reporting-impl -->
+            <groupId>org.apache.maven.doxia</groupId>
+            <artifactId>doxia-site-renderer</artifactId>
+            <version>1.9.1</version>
+        </dependency>
+        <dependency>
+            <!-- upgrade transitive dependency due to reported vulns -->
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+        <dependency>
+            <!-- upgrade transitive dependency due to reported vulns -->
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.4</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.maven.reporting</groupId>
             <artifactId>maven-reporting-impl</artifactId>
             <version>3.0.0</version>
