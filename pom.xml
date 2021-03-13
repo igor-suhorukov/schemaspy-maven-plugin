@@ -4,7 +4,7 @@
 
     <groupId>nl.geodienstencentrum.maven</groupId>
     <artifactId>schemaspy-maven-plugin</artifactId>
-    <version>5.2.0-SNAPSHOT</version>
+    <version>5.2.0-RC</version>
     <packaging>maven-plugin</packaging>
 
     <name>SchemaSpy Maven Plugin</name>
@@ -60,7 +60,7 @@
         <connection>scm:git:git://github.com/GeoDienstenCentrum/schemaspy-maven-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:GeoDienstenCentrum/schemaspy-maven-plugin.git</developerConnection>
         <url>https://github.com/GeoDienstenCentrum/schemaspy-maven-plugin/</url>
-        <tag>HEAD</tag>
+        <tag>schemaspy-maven-plugin-5.2.0-RC</tag>
     </scm>
     <issueManagement>
         <system>GitHub</system>
