@@ -4,7 +4,7 @@
 daysUntilLock: 365
 
 # Issues and pull requests with these labels will not be locked. Set to `[]` to disable
-exemptLabels: []
+exemptLabels: "help wanted"
 
 # Label to add before locking, such as `outdated`. Set to `false` to disable
 lockLabel: false
@@ -27,8 +27,8 @@ setLockReason: true
 #     - help-wanted
 #   lockLabel: outdated
 
-# pulls:
-#   daysUntilLock: 30
+pulls:
+   daysUntilLock: 22
 
 # Repository to extend settings from
 # _extends: repo
