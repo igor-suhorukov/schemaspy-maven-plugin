@@ -151,6 +151,12 @@
             <version>1.9.4</version>
         </dependency>
         <dependency>
+            <!-- upgrade transitive dependency due to reported vulns -->
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.maven.reporting</groupId>
             <artifactId>maven-reporting-impl</artifactId>
             <version>3.0.0</version>
@@ -201,7 +207,7 @@
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
-            <version>9.3.0.jre8-preview</version>
+            <version>9.3.1.jre8-preview</version>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -745,6 +751,10 @@
                             <executable>gpg2</executable>
                             <gpgArguments>
                                 <arg>--verbose</arg>
+                                <!-- GPG 2.1 requires pinentry-mode to be set to loopback in order
+										to pick up the gpg.passphrase value defined in Maven settings.xml. -->
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
                             </gpgArguments>
                             <useAgent>true</useAgent>
                         </configuration>

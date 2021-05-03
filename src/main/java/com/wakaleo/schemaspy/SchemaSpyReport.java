@@ -1,9 +1,5 @@
 package com.wakaleo.schemaspy;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 import net.sourceforge.schemaspy.Config;
 import net.sourceforge.schemaspy.SchemaAnalyzer;
 import org.apache.maven.doxia.siterenderer.Renderer;
@@ -14,6 +10,11 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.AbstractMavenReport;
 import org.apache.maven.reporting.MavenReportException;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * The SchemaSpy Maven plugin report.
@@ -325,35 +326,29 @@ public class SchemaSpyReport extends AbstractMavenReport {
     }
 
     /**
-     * Convenience method used to build the schemaspy command line parameters.
-     *
-     * @param argList
-     *            the current list of schemaspy parameter options.
-     * @param parameter
-     *            a new parameter to add
-     * @param value
-     *            the value for this parameter
-     */
-    private void addToArguments(final List<String> argList,
-            final String parameter, final Boolean value) {
-        if ((value != null) && (value)) {
+    * Convenience method used to build the schemaspy command line parameters.
+    *
+    * @param argList the current list of schemaspy parameter options.
+    * @param parameter a new parameter to add
+    * @param value the value for this parameter
+    */
+    private void addToArguments(
+        final List<String> argList, final String parameter, final Boolean value) {
+        if (value != null && value) {
             argList.add(parameter + "=" + value);
         }
     }
 
     /**
-     * Convenience method used to build the schemaspy command line parameters.
-     *
-     * @param argList
-     *            the current list of schemaspy parameter options.
-     * @param parameter
-     *            a new parameter to add
-     * @param value
-     *            the value for this parameter
-     */
-    private void addFlagToArguments(final List<String> argList,
-            final String parameter, final Boolean value) {
-        if ((value != null) && (value)) {
+    * Convenience method used to build the schemaspy command line parameters.
+    *
+    * @param argList the current list of schemaspy parameter options.
+    * @param parameter a new parameter to add
+    * @param value the value for this parameter
+    */
+    private void addFlagToArguments(
+        final List<String> argList, final String parameter, final Boolean value) {
+        if (value != null && value) {
             argList.add(parameter);
         }
     }
