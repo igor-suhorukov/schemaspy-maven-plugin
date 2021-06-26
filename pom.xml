@@ -130,7 +130,7 @@
             <!-- to override the version that comes with maven-reporting-impl -->
             <groupId>org.apache.maven.doxia</groupId>
             <artifactId>doxia-sink-api</artifactId>
-            <version>1.9.1</version>
+            <version>1.10</version>
         </dependency>
         <dependency>
             <!-- to override the version that comes with maven-reporting-impl -->
