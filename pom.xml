@@ -154,7 +154,7 @@
             <!-- upgrade transitive dependency due to reported vulns -->
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.10.0</version>
+            <version>2.11.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.reporting</groupId>
