@@ -8,6 +8,5 @@ Maven reporting plugin for Schemaspy
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/GeoDienstenCentrum/schemaspy-maven-plugin.svg)](http://isitmaintained.com/project/GeoDienstenCentrum/schemaspy-maven-plugin "Percentage of issues still open")
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/GeoDienstenCentrum/schemaspy-maven-plugin.svg)](http://isitmaintained.com/project/GeoDienstenCentrum/sass-maven-plugin "Average time to resolve an issue")
 [![Maven Site](https://github.com/GeoDienstenCentrum/schemaspy-maven-plugin/actions/workflows/site.yml/badge.svg)](https://github.com/GeoDienstenCentrum/schemaspy-maven-plugin/actions/workflows/site.yml)
-[![DepShield Badge](https://depshield.sonatype.org/badges/GeoDienstenCentrum/schemaspy-maven-plugin/depshield.svg)](https://depshield.github.io)
 [![CodeQL](https://github.com/GeoDienstenCentrum/schemaspy-maven-plugin/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/GeoDienstenCentrum/schemaspy-maven-plugin/actions/workflows/codeql-analysis.yml)
 [![OWASP dependency check](https://github.com/GeoDienstenCentrum/schemaspy-maven-plugin/actions/workflows/owasp-dependency-check.yml/badge.svg)](https://github.com/GeoDienstenCentrum/schemaspy-maven-plugin/actions/workflows/owasp-dependency-check.yml)

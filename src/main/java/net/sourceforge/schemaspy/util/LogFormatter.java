@@ -35,54 +35,38 @@ public class LogFormatter extends Formatter {
     private final String lineSeparator = System.getProperty("line.separator");
     private final int MAX_LEVEL_LEN = 7;
     private static final String formatSpec = "HH:mm:ss.";
-    private static final long serialVersionUID = 1L;
 
     /**
      * Date formatter for time-to-text translation.
      * These are very expensive to create and not thread-safe, so do it once per thread.
      */
-    private static final ThreadLocal<DateFormat> dateFormatter = new ThreadLocal<DateFormat>()
-    {
-        @Override
-        public DateFormat initialValue()
-        {
-            SimpleDateFormat formatter = new SimpleDateFormat(formatSpec);
-            return formatter;
-        }
-    };
+    private static final ThreadLocal<DateFormat> dateFormatter = ThreadLocal.withInitial(() -> new SimpleDateFormat(formatSpec));
 
     /**
      * Optimization to keep from creating a new {@link java.util.Date} for every call to
      * {@link #toString()}.
      */
-    private static final ThreadLocal<Date> date = new ThreadLocal<Date>()
-    {
-        @Override
-        public Date initialValue()
-        {
-            return new Date();
-        }
-    };
+    private static final ThreadLocal<Date> date = ThreadLocal.withInitial(Date::new);
 
     /**
      * Format the given LogRecord.
      *
-     * @param record
+     * @param logRecord
      *            the log record to be formatted.
      * @return a formatted log record
      */
     @Override
-    public String format(LogRecord record) {
+    public String format(LogRecord logRecord) {
         StringBuilder buf = new StringBuilder(128);
 
         // format the date portion:
 
         // thread-safe pseudo-singletons:
-        date.get().setTime(record.getMillis());
+        date.get().setTime(logRecord.getMillis());
         buf.append(dateFormatter.get().format(date.get()));
 
         // compute frac as the number of milliseconds off of a whole second
-        long frac = record.getMillis() % 1000;
+        long frac = logRecord.getMillis() % 1000;
 
         // force longFrac to overflow 1000 to give 1 followed by
         // 'leading' zeros
@@ -92,7 +76,7 @@ public class LogFormatter extends Formatter {
         buf.append(Long.toString(frac).substring(1));
 
         buf.append(" ");
-        StringBuilder level = new StringBuilder(record.getLevel().getLocalizedName());
+        StringBuilder level = new StringBuilder(logRecord.getLevel().getLocalizedName());
         if (level.length() > MAX_LEVEL_LEN)
             level.setLength(MAX_LEVEL_LEN);
         level.append(":");
@@ -102,10 +86,10 @@ public class LogFormatter extends Formatter {
         buf.append(" ");
 
         String name;
-        if (record.getSourceClassName() != null) {
-            name = record.getSourceClassName();
+        if (logRecord.getSourceClassName() != null) {
+            name = logRecord.getSourceClassName();
         } else {
-            name = record.getLoggerName();
+            name = logRecord.getLoggerName();
         }
 
         int lastDot = name.lastIndexOf('.');
@@ -113,20 +97,20 @@ public class LogFormatter extends Formatter {
             name = name.substring(lastDot + 1);
         buf.append(name);
 
-        if (record.getSourceMethodName() != null) {
+        if (logRecord.getSourceMethodName() != null) {
             buf.append('.');
-            buf.append(record.getSourceMethodName());
+            buf.append(logRecord.getSourceMethodName());
         }
 
         buf.append(" - ");
-        buf.append(formatMessage(record));
+        buf.append(formatMessage(logRecord));
         buf.append(lineSeparator);
 
-        if (record.getThrown() != null) {
+        if (logRecord.getThrown() != null) {
             try {
                 StringWriter stacktrace = new StringWriter();
-                record.getThrown().printStackTrace(new PrintWriter(stacktrace, true));
-                buf.append(stacktrace.toString());
+                logRecord.getThrown().printStackTrace(new PrintWriter(stacktrace, true));
+                buf.append(stacktrace);
                 // stack trace already has a line separator
             } catch (Exception ignore) {
             }
