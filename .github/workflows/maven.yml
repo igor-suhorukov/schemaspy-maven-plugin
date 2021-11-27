@@ -15,15 +15,20 @@ jobs:
     name: Test Java  ${{ matrix.java }} / Maven ${{ matrix.maven }}
     runs-on: ubuntu-latest
     strategy:
-      matrix:
+      fail-fast: true
+      matrix:        
         java: [ 8, 11 ]
-        java_dist: ["adopt"]
-        maven: [ "3.6.3", "3.5.4", "3.3.9", "3.8.3" ]
-      fail-fast: false
+        java_dist: ["temurin"]
+        maven: [ "3.5.4", "3.6.3", "3.8.4" ]
+        include:
+          - java: 17
+            java_dist: "temurin"
+            maven: "3.8.4"
+            experimental: true
 
     services:
       postgres:
-        image: postgis/postgis:12-3.1
+        image: postgis/postgis:14-3.1
         env:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: postgres
