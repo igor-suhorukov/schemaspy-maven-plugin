@@ -87,7 +87,7 @@
     </distributionManagement>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>8</java.version>
         <project.build.sourceVersion>${java.version}</project.build.sourceVersion>
         <project.build.targetVersion>${java.version}</project.build.targetVersion>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -119,6 +119,7 @@
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-core</artifactId>
             <version>${maven-libs.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
@@ -388,6 +389,7 @@
                         <manifestEntries>
                             <Specification-Title>${project.name}</Specification-Title>
                             <Specification-Version>${project.version}</Specification-Version>
+                            <!--suppress UnresolvedMavenProperty -->
                             <Implementation-Build>${buildNumber}</Implementation-Build>
                             <X-Git-Branch>${git.branch}</X-Git-Branch>
                             <X-Git-Tag>${git.tag}</X-Git-Tag>
@@ -400,6 +402,7 @@
                 <artifactId>maven-plugin-plugin</artifactId>
                 <configuration>
                     <goalPrefix>schemaspy</goalPrefix>
+                    <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
                 </configuration>
                 <executions>
                     <execution>
@@ -429,6 +432,7 @@
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
+                    <!--suppress UnresolvedMavenProperty -->
                     <argLine>${surefireArgLine}</argLine>
                     <excludes>
                         <exclude>${surefire.excludes.files}</exclude>
