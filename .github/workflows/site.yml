@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 8
-          distribution: "adopt"
+          distribution: "temurin"
 
       - name: Build Site with Maven
         run: mvn site -Dmaven.test.skip=true -B -V -fae -q

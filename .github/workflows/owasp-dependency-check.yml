@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         java: [ 8 ]
-        java_dist: ["adopt"]
+        java_dist: ["temurin"]
 
     steps:
       - uses: actions/checkout@v2
