@@ -34,7 +34,7 @@ import java.util.Locale;
  *           relational database.
  *
  */
-@Mojo(name = "schemaspy", defaultPhase = LifecyclePhase.SITE, threadSafe = false)
+@Mojo(name = "schemaspy", defaultPhase = LifecyclePhase.SITE)
 public class SchemaSpyReport extends AbstractMavenReport {
 
     /**
@@ -103,7 +103,7 @@ public class SchemaSpyReport extends AbstractMavenReport {
     /**
      * The type of database being analysed - defaults to ora.
      */
-    @Parameter (property ="databaseType")
+    @Parameter (property = "databaseType")
     private String databaseType;
 
     /**
@@ -321,7 +321,7 @@ public class SchemaSpyReport extends AbstractMavenReport {
      */
     SchemaAnalyzer analyzer = new SchemaAnalyzer();
 
-    protected void setSchemaAnalyzer(SchemaAnalyzer analyzer) {
+    protected void setSchemaAnalyzer(final SchemaAnalyzer analyzer) {
         this.analyzer = analyzer;
     }
 
