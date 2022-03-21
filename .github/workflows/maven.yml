@@ -23,7 +23,7 @@ jobs:
         include:
           - java: 17
             java_dist: "temurin"
-            maven: "3.8.4"
+            maven: "3.8.5"
             experimental: true
 
     services:
