@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>nl.geodienstencentrum.maven</groupId>
@@ -123,6 +124,24 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-model</artifactId>
+            <version>${maven-libs.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-artifact</artifactId>
+            <version>${maven-libs.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
+            <version>${maven-libs.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
             <version>${maven-libs.annotations.version}</version>
@@ -209,12 +228,12 @@
             <version>8.0.28</version>
             <optional>true</optional>
         </dependency>
-         <dependency>
-             <groupId>com.oracle.database.jdbc</groupId>
-             <artifactId>ojdbc8</artifactId>
-             <version>21.5.0.0</version>
-             <optional>true</optional>
-         </dependency>
+        <dependency>
+            <groupId>com.oracle.database.jdbc</groupId>
+            <artifactId>ojdbc8</artifactId>
+            <version>21.5.0.0</version>
+            <optional>true</optional>
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-jcl</artifactId>
@@ -225,136 +244,137 @@
     <build>
         <pluginManagement>
             <plugins>
-            <plugin>
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>4.3.0</version>
-                <dependencies>
-                    <!-- needed on java 11 -->
-                    <dependency>
-                        <groupId>jakarta.xml.bind</groupId>
-                        <artifactId>jakarta.xml.bind-api</artifactId>
-                        <version>2.3.3</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.glassfish.jaxb</groupId>
-                        <artifactId>jaxb-runtime</artifactId>
-                        <version>2.3.3</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.3.0</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.3.0</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.0.0</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>3.1.0</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.2.0</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.1</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.2</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>3.0.0-M1</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>3.0.0-M2</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-plugin-plugin</artifactId>
-                <version>${maven-plugin-plugin.version}</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>3.11.0</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.maven.skins</groupId>
-                        <artifactId>maven-fluido-skin</artifactId>
-                        <version>${maven-fluido-skin.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco-maven-plugin.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>ru.concerteza.buildnumber</groupId>
-                <artifactId>maven-jgit-buildnumber-plugin</artifactId>
-                <version>1.2.10</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>3.0.0-M5</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.1</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven-javadoc-plugin.version}</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${maven-checkstyle-plugin.version}</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>9.3</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <includeResources>false</includeResources>
-                    <configLocation>build/qa/checkstyle.xml</configLocation>
-                    <includes>com/wakaleo/**/*.java</includes>
-                    <!--<suppressionsLocation>${basedir}/checkstyle-suppressions.xml</suppressionsLocation>-->
-                    <enableRSS>false</enableRSS>
-                    <excludes>
+                <plugin>
+                    <groupId>org.eluder.coveralls</groupId>
+                    <artifactId>coveralls-maven-plugin</artifactId>
+                    <version>4.3.0</version>
+                    <dependencies>
+                        <!-- needed on java 11 -->
+                        <dependency>
+                            <groupId>jakarta.xml.bind</groupId>
+                            <artifactId>jakarta.xml.bind-api</artifactId>
+                            <version>2.3.3</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.glassfish.jaxb</groupId>
+                            <artifactId>jaxb-runtime</artifactId>
+                            <version>2.3.3</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>3.3.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.3.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.10.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.2.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>3.0.0-M1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>3.0.0-M2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-plugin-plugin</artifactId>
+                    <version>${maven-plugin-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.11.0</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.maven.skins</groupId>
+                            <artifactId>maven-fluido-skin</artifactId>
+                            <version>${maven-fluido-skin.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>ru.concerteza.buildnumber</groupId>
+                    <artifactId>maven-jgit-buildnumber-plugin</artifactId>
+                    <version>1.2.10</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>3.0.0-M5</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.2.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${maven-checkstyle-plugin.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.puppycrawl.tools</groupId>
+                            <artifactId>checkstyle</artifactId>
+                            <version>9.3</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <includeResources>false</includeResources>
+                        <configLocation>build/qa/checkstyle.xml</configLocation>
+                        <includes>com/wakaleo/**/*.java</includes>
+                        <!--<suppressionsLocation>${basedir}/checkstyle-suppressions.xml</suppressionsLocation>-->
+                        <enableRSS>false</enableRSS>
+                        <excludes>
 
-                        **/HelpMojo.java</excludes>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-scm-publish-plugin</artifactId>
-                <version>3.1.0</version>
-            </plugin>
-            <plugin>
-                <groupId>org.owasp</groupId>
-                <artifactId>dependency-check-maven</artifactId>
-                <version>${dependency-check-maven.version}</version>
-                <configuration>
-                    <name>OWASP Dependency Check</name>
-                    <formats>ALL</formats>
-                </configuration>
-            </plugin>
-        </plugins>
+                            **/HelpMojo.java
+                        </excludes>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-scm-publish-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.owasp</groupId>
+                    <artifactId>dependency-check-maven</artifactId>
+                    <version>${dependency-check-maven.version}</version>
+                    <configuration>
+                        <name>OWASP Dependency Check</name>
+                        <formats>ALL</formats>
+                    </configuration>
+                </plugin>
+            </plugins>
         </pluginManagement>
         <plugins>
             <plugin>
@@ -695,16 +715,16 @@
             <id>full-tests</id>
             <properties>
                 <!-- could also be NONE, see https://issues.apache.org/jira/browse/SUREFIRE-861 -->
-                <surefire.excludes.files />
+                <surefire.excludes.files/>
             </properties>
         </profile>
         <profile>
             <id>maven-ci</id>
             <properties>
                 <!-- should be environment provided -->
-                <repoToken />
+                <repoToken/>
                 <!-- could also be NONE, see https://issues.apache.org/jira/browse/SUREFIRE-861 -->
-                <surefire.excludes.files />
+                <surefire.excludes.files/>
             </properties>
             <build>
                 <plugins>
@@ -727,7 +747,8 @@
         <profile>
             <id>appveyor</id>
             <properties>
-                <surefire.excludes.files>**/Oracle*Test.java,**/Mysql*Test.java,**/PGSQL*Test.java</surefire.excludes.files>
+                <surefire.excludes.files>**/Oracle*Test.java,**/Mysql*Test.java,**/PGSQL*Test.java
+                </surefire.excludes.files>
             </properties>
         </profile>
         <profile>
