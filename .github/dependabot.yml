@@ -11,7 +11,7 @@ updates:
   assignees:
   - mprins
   labels:
-    - dependecies
+    - dependencies
     - build-infra
 
 - package-ecosystem: "github-actions"
