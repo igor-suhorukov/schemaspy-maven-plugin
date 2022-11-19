@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-# Oracle XE 18.0.0.0
-# this docker image has the following users/credentials (user/password = system/oracle)
-docker pull imnotjames/oracle-xe:18c
+# Oracle XE
+docker pull ghcr.io/gvenzl/oracle-xe:$1
 
 # start the dockerized oracle-xe instance
-# this container can be stopped using:
+# this container can be stopped/removed using:
 #
 #    docker stop schemaspy
 #
-docker run --rm -p 1521:1521 --cpus=2 --name schemaspy -h schemaspy -d imnotjames/oracle-xe:18c
+# this container has the following admin user/credentials (user/password = system/oracle)
+docker run --rm -p 1521:1521 --name schemaspy -h schemaspy -e ORACLE_PASSWORD=oracle -d ghcr.io/gvenzl/oracle-xe:$1
 
 printf "\n\nStarting Oracle XE container, this could take a few minutes..."
 printf "\nWaiting for Oracle XE database to start up.... "
@@ -27,7 +27,3 @@ do
     sleep 10
     _WAIT=$(($_WAIT+10))
 done
-
-# docker ps -a
-# print logs
-#docker logs schemaspy
