@@ -52,7 +52,7 @@
     </developers>
 
     <prerequisites>
-        <maven>3.3.9</maven>
+        <maven>3.5.4</maven>
     </prerequisites>
 
     <scm>
@@ -216,7 +216,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.30</version>
+            <version>8.0.33</version>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -757,7 +757,7 @@
                             <gpgArguments>
                                 <arg>--verbose</arg>
                                 <!-- GPG 2.1 requires pinentry-mode to be set to loopback in order
-										to pick up the gpg.passphrase value defined in Maven settings.xml. -->
+                                     to pick up the gpg.passphrase value defined in Maven settings.xml. -->
                                 <arg>--pinentry-mode</arg>
                                 <arg>loopback</arg>
                             </gpgArguments>
