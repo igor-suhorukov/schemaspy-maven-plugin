@@ -25,6 +25,9 @@ jobs:
           - java: 17
             java_dist: "temurin"
             maven: "3.9.4"
+          - java: 21
+            java_dist: "temurin"
+            maven: "3.9.4"
 
     services:
       postgres:
