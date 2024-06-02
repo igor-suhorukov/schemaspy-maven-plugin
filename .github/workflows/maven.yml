@@ -20,14 +20,14 @@ jobs:
       matrix:        
         java: [ 8, 11 ]
         java_dist: ["temurin"]
-        maven: [ "3.6.3", "3.8.8", "3.9.6" ]
+        maven: [ "3.6.3", "3.8.8", "3.9.7" ]
         include:
           - java: 17
             java_dist: "temurin"
-            maven: "3.9.6"
+            maven: "3.9.7"
           - java: 21
             java_dist: "zulu"
-            maven: "3.9.6"
+            maven: "3.9.7"
 
     services:
       postgres:
