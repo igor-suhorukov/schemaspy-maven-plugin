@@ -53,7 +53,8 @@ public class SchemaSpyMojoTest  {
         assumeTrue("POM file should exist as file.",
                 testPom.exists() && testPom.isFile());
 
-        SchemaSpyReport mojo = (SchemaSpyReport) this.rule.lookupMojo("schemaspy",testPom);
+        SchemaSpyReport mojo = new SchemaSpyReport();
+        mojo = (SchemaSpyReport) this.rule.configureMojo(mojo, rule.extractPluginConfiguration("schemaspy-maven-plugin", testPom));
         mojo.executeReport(Locale.getDefault());
 
         // check if the reports generated
@@ -70,7 +71,8 @@ public class SchemaSpyMojoTest  {
         assumeTrue("POM file should exist as file.",
                 testPom.exists() && testPom.isFile());
 
-        SchemaSpyReport mojo = (SchemaSpyReport) this.rule.lookupMojo("schemaspy",testPom);
+        SchemaSpyReport mojo = new SchemaSpyReport();
+        mojo = (SchemaSpyReport) this.rule.configureMojo(mojo, rule.extractPluginConfiguration("schemaspy-maven-plugin", testPom));
         mojo.executeReport(Locale.getDefault());
 
         // check if the reports generated

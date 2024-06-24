@@ -39,6 +39,8 @@ under the License.
               <database>target/testdb</database>
               <singleSignOn>true</singleSignOn>
               <noSchema>true</noSchema>
+              <catalog>%</catalog>
+              <vizjs>true</vizjs>
             </configuration>
         </plugin> 
     </plugins>

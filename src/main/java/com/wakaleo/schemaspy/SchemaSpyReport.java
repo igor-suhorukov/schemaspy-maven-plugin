@@ -1,7 +1,5 @@
 package com.wakaleo.schemaspy;
 
-import net.sourceforge.schemaspy.Config;
-import net.sourceforge.schemaspy.SchemaAnalyzer;
 import org.apache.maven.doxia.siterenderer.Renderer;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -307,6 +305,12 @@ public class SchemaSpyReport extends AbstractMavenReport {
     @Parameter(property = "noLogo", defaultValue = "true")
     private Boolean noLogo;
 
+    @Parameter(property = "catalog", defaultValue = "%")
+    private String catalog;
+
+    @Parameter(property = "vizjs", defaultValue = "true")
+    protected boolean vizjs = false;
+
     /**
      * Whether to create the report only on the execution root of a multi-module project.
      *
@@ -319,9 +323,9 @@ public class SchemaSpyReport extends AbstractMavenReport {
      * The SchemaSpy analyser that generates the actual report.
      * Can be overridden for testing purposes.
      */
-    SchemaAnalyzer analyzer = new SchemaAnalyzer();
+    private MavenSchemaAnalyzer analyzer;
 
-    protected void setSchemaAnalyzer(final SchemaAnalyzer analyzer) {
+    protected void setSchemaAnalyzer(final MavenSchemaAnalyzer analyzer) {
         this.analyzer = analyzer;
     }
 
@@ -335,7 +339,8 @@ public class SchemaSpyReport extends AbstractMavenReport {
     private void addToArguments(
         final List<String> argList, final String parameter, final Boolean value) {
         if (value != null && value) {
-            argList.add(parameter + "=" + value);
+            argList.add(parameter);
+            argList.add(String.valueOf(true));
         }
     }
 
@@ -363,10 +368,10 @@ public class SchemaSpyReport extends AbstractMavenReport {
      * @param value
      *            the value for this parameter
      */
-    private void addToArguments(final List<String> argList,
-            final String parameter, final String value) {
+    private void addToArguments(final List<String> argList, final String parameter, final String value) {
         if (value != null) {
-            argList.add(parameter + "=" + value);
+            argList.add(parameter);
+            argList.add(value);
         }
     }
 
@@ -402,6 +407,7 @@ public class SchemaSpyReport extends AbstractMavenReport {
             outputDir.mkdirs();
         }
         String schemaSpyDirectory = outputDir.getAbsolutePath();
+
         List<String> argList = new ArrayList<>();
 
 //        if ((jdbcUrl != null) && (databaseType == null)) {
@@ -438,15 +444,16 @@ public class SchemaSpyReport extends AbstractMavenReport {
         addFlagToArguments(argList, "-cid", commentsInitiallyDisplayed);
         addFlagToArguments(argList, "-noads", noAds);
         addFlagToArguments(argList, "-nologo", noLogo);
+        addToArguments(argList, "-cat", catalog);
+        addFlagToArguments(argList, "-vizjs", vizjs);
 //        addToArguments(argList, "-jdbcUrl", jdbcUrl);
 
-        String[] args = argList.toArray(new String[0]);
-        getLog().info("Generating SchemaSpy report with parameters:");
-        for (String arg : args) {
-            getLog().info(arg);
-        }
         try {
-            analyzer.analyze(new Config(args));
+            if (analyzer == null) {
+                analyzer = new MavenSchemaAnalyzer();
+                analyzer.applyConfiguration(argList);
+            }
+            analyzer.analyze();
         } catch (Exception e) {
             throw new MavenReportException(e.getMessage(), e);
         }

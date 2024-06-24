@@ -34,7 +34,7 @@ under the License.
             <artifactId>schemaspy-maven-plugin</artifactId>
             <version>@project.version@</version>
             <configuration>
-              <databaseType>mssql</databaseType>
+              <databaseType>mssql08</databaseType>
               <database>test</database>
               <schema>dbo</schema>
               <user>sa</user>
@@ -43,6 +43,8 @@ under the License.
               <port>1433</port>
               <outputDirectory>target/reports/mssql-test</outputDirectory>
               <schemaDescription>Maven Plugin SchemaSpy test</schemaDescription>
+              <connprops>Encrypt\=false</connprops>
+              <vizjs>true</vizjs>
             </configuration>
         </plugin> 
     </plugins>

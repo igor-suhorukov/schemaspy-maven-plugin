@@ -42,6 +42,7 @@ under the License.
               <host>127.0.0.1</host>
               <outputDirectory>target/reports/mysql-test</outputDirectory>
               <schemaDescription>Maven Plugin SchemaSpy test</schemaDescription>
+              <vizjs>true</vizjs>
             </configuration>
         </plugin> 
     </plugins>

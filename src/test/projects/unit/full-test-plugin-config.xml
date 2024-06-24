@@ -44,8 +44,9 @@ under the License.
               <singleSignOn>true</singleSignOn>
               <noSchema>true</noSchema>
               <allowHtmlInComments>true</allowHtmlInComments>
-              <cssStylesheet>testSchemaSpy.css</cssStylesheet>
               <schemaDescription>Maven Plugin SchemaSpy test</schemaDescription>
+              <catalog>%</catalog>
+              <vizjs>true</vizjs>
             </configuration>
         </plugin> 
     </plugins>

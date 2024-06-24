@@ -42,6 +42,8 @@ under the License.
               <port>1521</port>
               <outputDirectory>target/reports/oracle-test</outputDirectory>
               <schemaDescription>Maven Plugin SchemaSpy test</schemaDescription>
+              <catalog>%</catalog>
+              <vizjs>true</vizjs>
             </configuration>
         </plugin> 
     </plugins>

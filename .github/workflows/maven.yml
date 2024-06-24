@@ -18,17 +18,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:        
-        java: [ 8, 11 ]
+        java: [ 11, 17, 21 ]
         java_dist: ["temurin"]
         maven: [ "3.6.3", "3.8.8", "3.9.7" ]
-        include:
-          - java: 17
-            java_dist: "temurin"
-            maven: "3.9.7"
-          - java: 21
-            java_dist: "zulu"
-            maven: "3.9.7"
-
     services:
       postgres:
         image: postgis/postgis:16-3.4
@@ -65,7 +57,7 @@ jobs:
         run: sudo apt install -y --no-install-recommends graphviz
 
       - name: Build with Maven
-        run: mvn install -Dmaven.test.skip=true -B -V -fae -q
+        run: mvn install -Dmaven.test.skip=true -B -V -fae -q -Djava.awt.headless=true
 
       - name: Setup databases
         run: |
@@ -80,8 +72,8 @@ jobs:
 
       - name: Test
         run: |
-          mvn -e -B -fae -Pmaven-ci clean test -Dorg.slf4j.simpleLogger.showDateTime=true -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss,SSS -Dfailsafe.useFile=false
-          mvn -e -B -fae -Pmaven-ci jacoco:report coveralls:report -q -Dlicense.skip=true -DrepoToken=$GITHUB_TOKEN -DserviceName=github
+          mvn -e -B -fae -Pmaven-ci clean test -Dorg.slf4j.simpleLogger.showDateTime=true -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss,SSS -Dfailsafe.useFile=false -Djava.awt.headless=true
+          mvn -e -B -fae -Pmaven-ci jacoco:report coveralls:report -q -Dlicense.skip=true -DrepoToken=$GITHUB_TOKEN -DserviceName=github -Djava.awt.headless=true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #      # https://github.com/marketplace/actions/coveralls-github-action
@@ -92,7 +84,7 @@ jobs:
 
 
   docs:
-    name: Check Javadoc for Java 8
+    name: Check Javadoc for Java 11
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -100,7 +92,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          java-version: 8
+          java-version: 11
           distribution: 'zulu'
           cache: maven
 
