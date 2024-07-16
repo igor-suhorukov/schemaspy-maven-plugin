@@ -96,15 +96,15 @@
         <maven-libs.version>3.9.8</maven-libs.version>
         <maven-libs.annotations.version>3.13.1</maven-libs.annotations.version>
         <maven-javadoc-plugin.version>3.7.0</maven-javadoc-plugin.version>
-        <versions-maven-plugin.version>2.17.0</versions-maven-plugin.version>
+        <versions-maven-plugin.version>2.17.1</versions-maven-plugin.version>
         <maven-plugin-plugin.version>3.13.1</maven-plugin-plugin.version>
-        <maven-project-info-reports-plugin.version>3.6.1</maven-project-info-reports-plugin.version>
+        <maven-project-info-reports-plugin.version>3.6.2</maven-project-info-reports-plugin.version>
         <maven-jxr-plugin.version>3.4.0</maven-jxr-plugin.version>
         <maven-changes-plugin.version>2.12.1</maven-changes-plugin.version>
-        <dependency-check-maven.version>10.0.2</dependency-check-maven.version>
+        <dependency-check-maven.version>10.0.3</dependency-check-maven.version>
         <taglist-maven-plugin.version>3.1.0</taglist-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.4.0</maven-checkstyle-plugin.version>
-        <maven-pmd-plugin.version>3.23.0</maven-pmd-plugin.version>
+        <maven-pmd-plugin.version>3.24.0</maven-pmd-plugin.version>
         <findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
         <maven-surefire-plugin.version>3.3.1</maven-surefire-plugin.version>
@@ -216,7 +216,7 @@
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
-            <version>12.6.1.jre8</version>
+            <version>12.6.3.jre11</version>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -227,7 +227,7 @@
         </dependency>
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
-            <artifactId>ojdbc8</artifactId>
+            <artifactId>ojdbc11</artifactId>
             <version>23.4.0.24.05</version>
             <optional>true</optional>
         </dependency>
@@ -326,7 +326,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.1.1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-source-plugin</artifactId>
@@ -366,6 +366,7 @@
                     <configuration>
                         <name>OWASP Dependency Check</name>
                         <formats>ALL</formats>
+                        <nvdApiKey>${env.NVD_API_KEY}</nvdApiKey>
                     </configuration>
                 </plugin>
             </plugins>
@@ -741,8 +742,7 @@
         <profile>
             <id>appveyor</id>
             <properties>
-                <surefire.excludes.files>**/Oracle*Test.java,**/Mysql*Test.java,**/PGSQL*Test.java
-                </surefire.excludes.files>
+                <surefire.excludes.files>**/Oracle*Test.java,**/Mysql*Test.java,**/PGSQL*Test.java</surefire.excludes.files>
             </properties>
         </profile>
         <profile>
@@ -759,7 +759,8 @@
                                 export GPG_TTY
                         -->
                         <configuration>
-                            <executable>gpg2</executable>
+                            <!-- gpg2 on openbsd, gpg on linux -->
+                            <executable>gpg</executable>
                             <gpgArguments>
                                 <arg>--verbose</arg>
                                 <!-- GPG 2.1 requires pinentry-mode to be set to loopback in order
