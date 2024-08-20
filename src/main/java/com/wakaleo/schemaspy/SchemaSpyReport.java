@@ -8,8 +8,19 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.AbstractMavenReport;
 import org.apache.maven.reporting.MavenReportException;
+import org.schemaspy.LayoutFolder;
+import org.schemaspy.SchemaAnalyzer;
+import org.schemaspy.cli.CommandLineArgumentParser;
+import org.schemaspy.cli.CommandLineArguments;
+import org.schemaspy.input.dbms.ConnectionConfig;
+import org.schemaspy.input.dbms.service.DatabaseServiceFactory;
+import org.schemaspy.input.dbms.service.SqlService;
+import org.schemaspy.output.OutputProducer;
+import org.schemaspy.output.xml.dom.XmlProducerUsingDOM;
 
 import java.io.File;
+import java.io.IOException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -98,6 +109,11 @@ public class SchemaSpyReport extends AbstractMavenReport {
 //    @Parameter
 //    private String jdbcUrl;
 
+    @Parameter (property = "postgresDdlScript")
+    private String postgresDdlScript;
+
+    @Parameter (property = "postgresImage")
+    private String postgresImage;
     /**
      * The type of database being analysed - defaults to ora.
      */
@@ -449,14 +465,66 @@ public class SchemaSpyReport extends AbstractMavenReport {
 //        addToArguments(argList, "-jdbcUrl", jdbcUrl);
 
         try {
-            if (analyzer == null) {
-                analyzer = new MavenSchemaAnalyzer();
-                analyzer.applyConfiguration(argList);
+            if(postgresDdlScript!=null && !postgresDdlScript.trim().isEmpty()){
+                if(database==null){
+                    database = "postgres";
+                    addToArguments(argList, "-db", database);
+                }
+                if(postgresImage==null || postgresImage.isEmpty()){
+                    postgresImage = "postgresql:9.6.8";
+                }
+                String jdbcUrl = "jdbc:tc:" + postgresImage +
+                        ":///"+database+"?TC_TMPFS=/testtmpfs:rw&TC_INITSCRIPT=" + postgresDdlScript;
+                try (Connection connection = DriverManager.getConnection(jdbcUrl)){
+                    ResultSet resultSet = connection.createStatement().executeQuery("select 1");
+                    while (resultSet.next()){
+                        System.out.println(resultSet.getString(1));
+                    }
+                    if(databaseType==null){
+                        databaseType = "pgsql";
+                        addToArguments(argList, "-t", databaseType);
+                    }
+                    if(user==null){
+                        user="test";
+                        addToArguments(argList, "-u", user);
+                    }
+                    if(password==null){
+                        password="test";
+                        addToArguments(argList, "-p", password);
+                    }
+                    analyze(argList, connection);
+                }
+            } else {
+                analyze(argList);
             }
-            analyzer.analyze();
         } catch (Exception e) {
             throw new MavenReportException(e.getMessage(), e);
         }
+    }
+
+    private static void analyze(List<String> argList, Connection connection) throws SQLException, IOException {
+        String[] args = argList.toArray(new String[0]);
+        CommandLineArgumentParser parser = new CommandLineArgumentParser(new CommandLineArguments(), null);
+        CommandLineArguments cliArgs = parser.parse(args);
+        SqlService sqlService = new SqlService(){
+            @Override
+            public DatabaseMetaData connect(ConnectionConfig connectionConfig) throws IOException, SQLException {
+                return connect(connection);
+            }
+        };
+        DatabaseServiceFactory databaseServiceFactory = new DatabaseServiceFactory(sqlService);
+        OutputProducer outputProducer = new XmlProducerUsingDOM();
+        LayoutFolder layoutFolder = new LayoutFolder(SchemaAnalyzer.class.getClassLoader());
+        SchemaAnalyzer analyzer = new SchemaAnalyzer(sqlService, databaseServiceFactory, cliArgs, outputProducer, layoutFolder);
+        analyzer.analyze();
+    }
+
+    private void analyze(List<String> argList) throws SQLException, IOException {
+        if (analyzer == null) {
+            analyzer = new MavenSchemaAnalyzer();
+            analyzer.applyConfiguration(argList);
+        }
+        analyzer.analyze();
     }
 
     @Override
